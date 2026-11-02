@@ -1,0 +1,224 @@
+{
+  "author": "Yadunandan Mandalaneni",
+  "note": "Learning style describes the training objective, not a permanent property of an architecture. Broad supervised/unsupervised categories appear alongside the specific training setup. In self-supervised training, targets come from the data itself. Conditional models and later fine-tuning can add supervision. Domain labels show selected common uses, not every possible application. All use cases are illustrative, not reported experiments.",
+  "algorithms": [
+    {
+      "name": "Linear Regression",
+      "type": "Supervised",
+      "domains": [
+        "Tabular"
+      ],
+      "how": "Fits a weighted linear relationship between input features and a numeric target.",
+      "use": "Estimate a home price from area, location features, and property characteristics.",
+      "cue": "Start with an interpretable numeric baseline; inspect residuals and assumptions.",
+      "ref": "1",
+      "color": "#087f78"
+    },
+    {
+      "name": "Random Forest",
+      "type": "Supervised",
+      "domains": [
+        "Tabular"
+      ],
+      "how": "Trains randomized decision trees on resampled data, then averages predictions or votes.",
+      "use": "Predict customer churn from account activity and service history.",
+      "cue": "Captures nonlinear patterns; individual predictions are harder to explain than one tree.",
+      "ref": "1",
+      "color": "#087f78"
+    },
+    {
+      "name": "Gradient Boosting",
+      "type": "Supervised",
+      "domains": [
+        "Tabular"
+      ],
+      "how": "Adds weak learners sequentially, each improving the current ensemble against a chosen loss.",
+      "use": "Rank loan applications by default risk using labeled historical outcomes.",
+      "cue": "Useful for structured prediction; tune complexity to control overfitting.",
+      "ref": "1",
+      "color": "#087f78"
+    },
+    {
+      "name": "Convolutional Neural Network",
+      "type": "Supervised: classifier setup",
+      "domains": [
+        "Computer Vision"
+      ],
+      "how": "Learns shared local filters and progressively combines visual features to predict a class.",
+      "use": "Flag visible manufacturing defects in labeled product photographs.",
+      "cue": "Learns image features; performance depends on representative images and labels.",
+      "ref": "2",
+      "color": "#087f78"
+    },
+    {
+      "name": "K-Means",
+      "type": "Unsupervised",
+      "domains": [
+        "Tabular",
+        "Computer Vision"
+      ],
+      "how": "Alternates assigning points to the closest centroid and updating each cluster mean.",
+      "use": "Group customers by scaled purchasing behavior without predefined segment labels.",
+      "cue": "Choose k and scale features; compact clusters may miss complex shapes.",
+      "ref": "1",
+      "color": "#ad6516"
+    },
+    {
+      "name": "Principal Component Analysis",
+      "type": "Unsupervised",
+      "domains": [
+        "Tabular",
+        "Computer Vision"
+      ],
+      "how": "Projects centered data onto orthogonal directions that retain the most variance.",
+      "use": "Reduce correlated sensor measurements to fewer features for visualization.",
+      "cue": "Compresses features, not clusters; high variance need not mean task relevance.",
+      "ref": "1",
+      "color": "#ad6516"
+    },
+    {
+      "name": "BERT",
+      "type": "Unsupervised/self-supervised pretraining; supervised fine-tuning",
+      "domains": [
+        "NLP"
+      ],
+      "how": "Uses bidirectional context to recover masked tokens; original BERT also used a sentence-pair objective.",
+      "use": "Fine-tune a pretrained encoder on labeled support tickets to classify intent.",
+      "cue": "The ticket classifier is supervised fine-tuning; BERT is not a free-form text generator.",
+      "ref": "3",
+      "color": "#6c49a8"
+    },
+    {
+      "name": "GPT-style Transformer",
+      "type": "Unsupervised data / self-supervised pretraining",
+      "domains": [
+        "NLP",
+        "Generative AI"
+      ],
+      "how": "Uses causal attention to predict the next token from preceding tokens, then generates sequentially.",
+      "use": "Draft a product description from a supplied brief, followed by human review.",
+      "cue": "Base pretraining is shown; later instruction tuning can add other learning styles.",
+      "ref": "4",
+      "color": "#6c49a8"
+    },
+    {
+      "name": "Generative Adversarial Network",
+      "type": "Unsupervised: unconditional setup",
+      "domains": [
+        "Computer Vision",
+        "Generative AI"
+      ],
+      "how": "A generator synthesizes samples while a discriminator learns to distinguish generated from real data.",
+      "use": "Generate synthetic product-image variations for creative exploration.",
+      "cue": "Training can be unstable or collapse to limited outputs; conditional variants add supervision.",
+      "ref": "5",
+      "color": "#a04476"
+    },
+    {
+      "name": "Diffusion Model",
+      "type": "Unsupervised data / self-supervised denoising",
+      "domains": [
+        "Computer Vision",
+        "Generative AI"
+      ],
+      "how": "Learns to reverse added noise; repeated denoising transforms a random sample into generated content.",
+      "use": "Generate image concepts; text-conditioned variants guide generation with prompts.",
+      "cue": "The baseline needs no human class labels; text-image conditioning uses paired information.",
+      "ref": "6",
+      "color": "#a04476"
+    }
+  ],
+  "comparisons": [
+    [
+      "Random Forest vs. Boosting",
+      "Both combine trees for labeled prediction. A forest averages randomized trees to reduce variance. Boosting builds learners sequentially to improve a loss. Compare both with the same validation split; neither is automatically best. [10]"
+    ],
+    [
+      "K-Means vs. PCA",
+      "K-Means assigns observations to groups. PCA creates new continuous feature directions. PCA may precede clustering, but retained variance alone does not show that useful groups exist. [1, 11]"
+    ],
+    [
+      "BERT vs. GPT",
+      "BERT uses bidirectional context to learn representations. A task head can classify a complete text. A GPT-style base model uses preceding context to predict and generate the next token. Both can be adapted after pretraining. [3, 4]"
+    ]
+  ],
+  "scenario": [
+    [
+      "Predict demand",
+      "Linear regression; forest; boosting",
+      "Past sales and known features -> predicted units. Compare MAE/RMSE on a later time period and against a simple demand baseline. [8, 9]"
+    ],
+    [
+      "Segment customers",
+      "K-Means; optional PCA",
+      "Scaled purchasing features -> candidate groups. Check stability, separation, and business usefulness; groups are not established customer truths. [1, 11]"
+    ],
+    [
+      "Route support tickets",
+      "BERT + classification head",
+      "Ticket text plus intent labels -> intent class. Use per-class precision/recall and macro-F1; inspect errors on similar or rare intents. [3, 8]"
+    ],
+    [
+      "Create campaign content",
+      "GPT; GAN; diffusion",
+      "Brief -> draft text; noise or conditioning -> image candidates. Review prompt adherence, factual accuracy for text, image quality, and output diversity. [4-6]"
+    ]
+  ],
+  "references": [
+    [
+      "1",
+      "scikit-learn developers. User Guide: supervised learning, clustering, and matrix decomposition.",
+      "https://scikit-learn.org/stable/user_guide.html"
+    ],
+    [
+      "2",
+      "He, K., Zhang, X., Ren, S., & Sun, J. (2015). Deep Residual Learning for Image Recognition.",
+      "https://arxiv.org/abs/1512.03385"
+    ],
+    [
+      "3",
+      "Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.",
+      "https://arxiv.org/abs/1810.04805"
+    ],
+    [
+      "4",
+      "Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). Language Models are Unsupervised Multitask Learners.",
+      "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+    ],
+    [
+      "5",
+      "Goodfellow, I., et al. (2014). Generative Adversarial Networks.",
+      "https://arxiv.org/abs/1406.2661"
+    ],
+    [
+      "6",
+      "Ho, J., Jain, A., & Abbeel, P. (2020). Denoising Diffusion Probabilistic Models.",
+      "https://arxiv.org/abs/2006.11239"
+    ],
+    [
+      "7",
+      "Costa, B., & Trojahan, M. (2024, August 28). What are the differences between AI, ML, DL, and Gen AI? e-Core.",
+      "https://www.e-core.com/na-en/articles/differences-between-ai-ml-dl-gen-ai"
+    ],
+    [
+      "8",
+      "scikit-learn developers. (n.d.). Metrics and scoring: Quantifying the quality of predictions.",
+      "https://scikit-learn.org/stable/modules/model_evaluation.html"
+    ],
+    [
+      "9",
+      "scikit-learn developers. (n.d.). Cross-validation: Evaluating estimator performance.",
+      "https://scikit-learn.org/stable/modules/cross_validation.html"
+    ],
+    [
+      "10",
+      "scikit-learn developers. (n.d.). Ensembles: Gradient boosting, random forests, bagging, voting, stacking.",
+      "https://scikit-learn.org/stable/modules/ensemble.html"
+    ],
+    [
+      "11",
+      "scikit-learn developers. (n.d.). Decomposing signals in components: Principal component analysis.",
+      "https://scikit-learn.org/stable/modules/decomposition.html#pca"
+    ]
+  ]
+}
