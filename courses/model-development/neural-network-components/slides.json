@@ -1,0 +1,124 @@
+[
+  {
+    "title": "Neural network components and learning",
+    "notes": "AIML 501 Assignment 2.4. A visual explanation of six neural network components, supported by six actual TensorFlow Playground runs. Yadunandan Mandalaneni. Model Development. November 12, 2026.",
+    "refs": [
+      0
+    ]
+  },
+  {
+    "title": "Architecture and data flow",
+    "notes": "Layers group neurons. Inputs hold supplied features. Hidden layers transform intermediate representations. The output layer produces the prediction. This schematic matches the 2 input, 4 neuron, 2 neuron, 1 output architecture in runs A to C. Lines show trainable connections. Biases also belong to every non-input neuron. The diagram is schematic and does not reproduce learned weights.",
+    "refs": [
+      1,
+      4
+    ]
+  },
+  {
+    "title": "Neurons weights and bias",
+    "notes": "A neuron computes a weighted sum plus a bias and then applies an activation. Weights scale contributions and can change their sign. Bias shifts the response even when inputs are zero. This numeric example is illustrative rather than a value measured from a trained model. z = 0.6 times 0.8 minus 0.5 times 0.2 plus 0.1 = 0.48. tanh(0.48) is approximately 0.446.",
+    "refs": [
+      1,
+      4
+    ]
+  },
+  {
+    "title": "Layers and model capacity",
+    "notes": "A layer is a group of units at the same stage of computation. Hidden width and depth affect the functions a network can express and the work per training step. Parameter counts include all dense weights and all non-input biases, using (inputs + 1) times outputs for each adjacent pair of layers. Engineered features are computed outside the learned network. Counts are calculated from the recorded architecture, not reported by the Playground UI.",
+    "refs": [
+      1,
+      4
+    ]
+  },
+  {
+    "title": "Activation functions",
+    "notes": "An activation maps the summed input to the neuron output. Nonlinear hidden activations allow compositions that express curved boundaries. The curves here are calculated from the standard mathematical functions. In Playground classification the output activation stays tanh, while the activation menu changes hidden units. A linear hidden network still has a straight classification boundary in the raw two-dimensional inputs. The no-hidden run makes the hidden activation menu irrelevant.",
+    "refs": [
+      1,
+      3,
+      4
+    ]
+  },
+  {
+    "title": "Loss functions",
+    "notes": "A loss measures disagreement between predictions and targets and gives training an objective. Playground uses the average half squared error, with class labels minus one and plus one. Its displayed loss is not accuracy. Binary cross entropy is another common objective for a model that outputs class probabilities and uses labels zero and one. The example squared error is hypothetical. No binary cross entropy experiment was run.",
+    "refs": [
+      3,
+      4
+    ]
+  },
+  {
+    "title": "Optimization algorithms",
+    "notes": "Optimization algorithms update weights and biases to reduce the objective. Backpropagation computes gradients using the chain rule. The optimizer applies updates using those gradients. Playground uses averaged mini-batch gradient updates. With batch size 10, every 10 training samples trigger an update. Momentum uses a running velocity. Adam uses estimates of first and second gradient moments to adapt the updates. Only Playground mini-batch gradient descent was used in this artifact.",
+    "refs": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "title": "Playground experiment design",
+    "notes": "Six exploratory classification runs were performed on November 12, 2026. Each run used 200 epochs, learning rate 0.03, batch size 10, a 50 percent training split, and no regularization. The menu activation describes hidden units. Run D has no hidden layer, so its menu activation has no effect. The output is tanh in every classification run. Changes to data controls regenerate samples and change the seed. These are single-run observations rather than replicated causal estimates. A and B share a dataset seed, but initialization is not controlled independently. The UI reports losses rounded to three decimals. URLs preserve settings and seeds but not trained weights.",
+    "refs": [
+      0,
+      3,
+      4
+    ]
+  },
+  {
+    "title": "Nonlinearity changes the circle fit",
+    "notes": "Actual screenshots and displayed losses from runs A and B. Both runs use circle data, noise zero, raw x1 and x2 inputs, hidden layers 4 and 2, the same visible seed 0.50685, and 200 epochs. Hidden activation changes from linear to tanh. A tanh output remains fixed in both. The screenshot shows B. The nonlinear hidden features allow the network to form an enclosed boundary. Random initial weights were not paired independently, so the measured difference should not be treated as a replicated causal effect.",
+    "refs": [
+      0,
+      3
+    ]
+  },
+  {
+    "title": "Features can simplify the architecture",
+    "notes": "Run D uses squared inputs x1 squared and x2 squared, no hidden layers, circle data with zero noise, and a tanh output. At 200 epochs the displayed training loss is 0.003 and test loss is 0.002. Only three trainable parameters remain, including the output bias. A weighted sum of squared coordinates can express an ellipse or circle in the original coordinates. This fits the radial structure of the chosen task. Multiple settings and the seed differ from A, so this is a representation example rather than an isolated one-factor comparison.",
+    "refs": [
+      0,
+      3,
+      4
+    ]
+  },
+  {
+    "title": "Noise and limited capacity",
+    "notes": "Screenshot of run C with noise 30. It returns training loss 0.118 and test loss 0.159 after 200 epochs, using hidden layers 4 and 2 with tanh. The noisy points overlap more than in the clean case. Run E uses the clean circle task with one hidden layer of two neurons and returns 0.218 and 0.267. Its boundary leaves visible errors. The runs illustrate different reasons for poor fit. Noise can make examples less separable. Limited capacity can restrict the decision boundary. Data seeds and initialization differ, so the study does not quantify their independent causal effects.",
+    "refs": [
+      0
+    ]
+  },
+  {
+    "title": "Dataset difficulty affects the fit",
+    "notes": "Run F keeps a two-neuron hidden layer and raw inputs, but changes to Gaussian data with zero noise. At 200 epochs both displayed losses round to 0.000. The classes are separated by a near straight boundary. E and F demonstrate that a small architecture can work well on an easier geometry while struggling with a circle. The seed changes with the dataset. A rounded zero is not proof of exactly zero error, nor evidence that this architecture generalizes to other datasets. Screenshot from actual run F.",
+    "refs": [
+      0,
+      3
+    ]
+  },
+  {
+    "title": "Interpreting the experiments",
+    "notes": "Training time can mean wall-clock time or the number of optimization passes. This exploration controls epoch budget and compares network parameter counts as a complexity indicator. It does not benchmark elapsed training time because browser rendering and automated step interactions add overhead. All runs reached 200 epochs, but loss values differed. A stronger future evaluation would fix data and initialization deliberately, repeat seeds, compare learning curves and wall-clock compute, and hold back a final untouched evaluation set. Test data here serve exploratory feedback, so these losses should not be represented as final unbiased performance estimates.",
+    "refs": [
+      0,
+      3
+    ]
+  },
+  {
+    "title": "References",
+    "notes": "Sources consulted for concepts and the implementation details. Playground screenshots are original captures of the actual experiments. Source links and recorded configuration URLs are also provided on the portfolio page.",
+    "refs": []
+  },
+  {
+    "title": "Summary",
+    "notes": "Visualizing a network connects individual computations with the overall decision boundary. Layers organize computations. Neurons combine weighted inputs and bias then apply an activation. Loss supplies the fitting objective and optimization changes the parameters. The experiments show the roles of nonlinear hidden units, appropriate input features, data noise, and network capacity. The artifact focuses on neural network mechanisms and evidence, complementing the first portfolio artifact which compares algorithm families. ChatGPT/Codex assisted with research synthesis, operating the Playground, generating the presentation and implementing the portfolio page.",
+    "refs": [
+      0,
+      1,
+      2
+    ]
+  }
+]

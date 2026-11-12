@@ -9,6 +9,10 @@ A growing portfolio of coursework, explanations, and project evidence.
 
 The Algorithm Types framework compares ten algorithms and model families across tabular data, computer vision, NLP, and generative AI. It includes a one-page infographic, a three-page practical guide, an accessible comparison, method-selection examples, and references.
 
+## Second artifact
+
+[Neural Network Components: Assignment 2.4](https://nandan09-12.github.io/courses/model-development/neural-network-components/) adds an editable presentation, six documented TensorFlow Playground experiments, original screenshots, and an accessible explanation.
+
 ## Contents
 - `index.html`: portfolio home and value proposition.
 - `courses/model-development/algorithm-types/`: artifact page, infographic PDF and preview image.
@@ -22,4 +26,4 @@ GitHub Pages publishes from the `main` branch, root folder. The HTML uses relati
 Add each new artifact under its own stable directory and link it from the portfolio home. Substantial code projects can have their own repositories, linked from their portfolio entries. Keep a submission snapshot when an assignment is finalized.
 
 ## Scope and provenance
-This is an explanatory artifact with illustrative applications. It does not claim to have trained models or measured performance. Sources and the assistance used to create the artifact are documented on its page. Brightspace reflections are kept outside the public repository.
+The first artifact is a conceptual comparison with illustrative applications. The second records actual educational Playground runs, their settings, and displayed losses. Those single runs are not production benchmarks. Each artifact documents its sources and the assistance used to create it. Brightspace reflections are kept outside the public repository.
